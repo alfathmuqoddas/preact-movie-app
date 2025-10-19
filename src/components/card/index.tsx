@@ -1,4 +1,4 @@
-import { Link } from 'wouter-preact';
+import { Link } from "wouter-preact";
 
 export const renderRating = (rating: number) => {
   const calculatedRating = Math.round(rating * 10);
@@ -28,7 +28,7 @@ export const HorizontalCard = ({
   rating: number;
 }) => {
   return (
-    <Link to={`/details/${mediaType}/${id}`}>
+    <Link to={`/preact-movie-app/details/${mediaType}/${id}`}>
       <div className="p-2 rounded-md hover:bg-blue-300 cursor-pointer">
         <div className="flex gap-2 items-start">
           <figure className="w-12 overflow-hidden rounded-lg flex-shrink-0">

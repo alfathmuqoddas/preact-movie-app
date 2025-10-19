@@ -1,8 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
-import { sampleText } from '../../store/useCountStore';
-import debounce from 'lodash.debounce';
-import useFetch from '../../hooks/useFetch';
-import { HorizontalCard } from '../../components/card';
+import { useState, useEffect } from "react";
+import useFetch from "../../hooks/useFetch";
+import { HorizontalCard } from "../../components/card";
 
 export const SearchIcon = () => {
   return (
@@ -24,7 +22,7 @@ export const SearchIcon = () => {
   );
 };
 
-export const buildSearchUrl = (type: 'movie' | 'tv', query: string) => {
+export const buildSearchUrl = (type: "movie" | "tv", query: string) => {
   const trimmed = query.trim();
   if (trimmed.length < 2) return null; // Don't search for short queries
   return `https://api.themoviedb.org/3/search/${type}?api_key=${
@@ -33,26 +31,26 @@ export const buildSearchUrl = (type: 'movie' | 'tv', query: string) => {
 };
 
 export default function Homepage() {
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [inputQuery, setInputQuery] = useState("");
 
-  const debouncedSetQuery = useCallback(
-    debounce((value: string) => {
-      setDebouncedQuery(value);
-    }, 400),
-    []
-  );
+  const [debouncedQuery, setDebouncedQuery] = useState("");
 
   useEffect(() => {
-    debouncedSetQuery(sampleText.value);
-    return () => debouncedSetQuery.cancel();
-  }, [sampleText.value, debouncedSetQuery]);
+    const handler = setTimeout(() => {
+      setDebouncedQuery(inputQuery);
+    }, 400);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [inputQuery]);
 
   const handleChange = (e: any) => {
-    sampleText.value = e.target.value;
+    setInputQuery(e.target.value);
   };
 
-  const tvUrl = buildSearchUrl('tv', debouncedQuery);
-  const movieUrl = buildSearchUrl('movie', debouncedQuery);
+  const tvUrl = buildSearchUrl("tv", debouncedQuery);
+  const movieUrl = buildSearchUrl("movie", debouncedQuery);
 
   const {
     data: tvData,
@@ -68,9 +66,7 @@ export default function Homepage() {
   return (
     <article
       className={`${
-        sampleText.value
-          ? ''
-          : 'flex items-center justify-center flex-col h-full'
+        debouncedQuery ? "" : "flex items-center justify-center flex-col h-full"
       }`}
     >
       <form className="w-full">
@@ -90,7 +86,7 @@ export default function Homepage() {
             className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search Movies, Series, anything..."
             onInput={handleChange}
-            value={sampleText.value}
+            value={inputQuery}
             required
           />
         </div>

@@ -1,6 +1,6 @@
-import { useParams } from 'wouter-preact';
-import useFetch from '../../hooks/useFetch';
-import { renderRating, TitleCard, CreditsCard } from '../../components/card';
+import { useParams } from "wouter-preact";
+import useFetch from "../../hooks/useFetch";
+import { renderRating, TitleCard, CreditsCard } from "../../components/card";
 
 export default function Details() {
   const params = useParams();
@@ -75,20 +75,26 @@ export default function Details() {
                 </TitleCard>
               </article>
               <article className="shadow-lg rounded-2xl p-4 border border-gray-100">
-                <TitleCard title="Cast">
-                  <div className="overflow-auto">
-                    <div className="flex gap-2">
-                      {creditsData?.cast?.map((c: any) => (
-                        <CreditsCard
-                          key={c.id}
-                          img={c.profile_path}
-                          name={c.name}
-                          character={c.character}
-                        />
-                      ))}
+                {isLoadingCreditsData ? (
+                  <>Loading...</>
+                ) : errorCreditsData ? (
+                  <>Error</>
+                ) : (
+                  <TitleCard title="Cast">
+                    <div className="overflow-auto">
+                      <div className="flex gap-2">
+                        {creditsData?.cast?.map((c: any) => (
+                          <CreditsCard
+                            key={c.id}
+                            img={c.profile_path}
+                            name={c.name}
+                            character={c.character}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </TitleCard>
+                  </TitleCard>
+                )}
               </article>
             </section>
 
@@ -101,18 +107,18 @@ export default function Details() {
               </TitleCard>
               <TitleCard title="Revenue">
                 <p>
-                  {Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
+                  {Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
                     minimumFractionDigits: 2,
                   }).format(data?.revenue)}
                 </p>
               </TitleCard>
               <TitleCard title="Budget">
                 <p>
-                  {Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
+                  {Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
                     minimumFractionDigits: 2,
                   }).format(data?.budget)}
                 </p>
@@ -133,8 +139,8 @@ export default function Details() {
             </aside>
           </section>
 
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-          <pre>{JSON.stringify(creditsData, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+          {/* <pre>{JSON.stringify(creditsData, null, 2)}</pre> */}
         </>
       )}
     </>

@@ -11,7 +11,6 @@
   "dependencies": {
     "@preact/signals": "^2.3.2",
     "@tailwindcss/vite": "^4.1.14",
-    "lodash.debounce": "^4.0.8",
     "preact": "^10.27.2",
     "tailwindcss": "^4.1.14",
     "wouter-preact": "^3.7.1"
