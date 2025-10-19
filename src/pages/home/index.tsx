@@ -58,12 +58,12 @@ export default function Homepage() {
     data: tvData,
     isLoading: isLoadingTv,
     error: errorTv,
-  } = useFetch(tvUrl);
+  } = useFetch<any>(tvUrl);
   const {
     data: moviesData,
     isLoading: isLoadingMovies,
     error: errorMovies,
-  } = useFetch(movieUrl);
+  } = useFetch<any>(movieUrl);
 
   return (
     <article
@@ -108,13 +108,12 @@ export default function Homepage() {
             <div className="flex flex-col md:flex-row gap-2">
               {moviesData && (
                 <div className="flex flex-col gap-2 flex-1">
-                  {moviesData.results.map((movie) => (
+                  {moviesData?.results?.map((movie: any) => (
                     <HorizontalCard
                       id={movie.id}
                       poster_path={movie.poster_path}
                       title={movie.title}
                       mediaType="movie"
-                      id={movie.id}
                       release_date={movie.release_date}
                       rating={movie.vote_average}
                     />
@@ -123,7 +122,7 @@ export default function Homepage() {
               )}
               {tvData && (
                 <div className="flex flex-col gap-2 flex-1">
-                  {tvData.results.map((tv) => (
+                  {tvData.results.map((tv: any) => (
                     <HorizontalCard
                       title={tv.name}
                       poster_path={tv.poster_path}
