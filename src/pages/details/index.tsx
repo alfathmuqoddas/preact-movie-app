@@ -68,13 +68,13 @@ export default function Details() {
           {/* Main information section */}
           <section className="flex flex-col mt-4 md:flex-row gap-2 md:gap-4">
             {/* Left side */}
-            <section className="flex flex-col gap-2 md:w-8/12">
-              <article className="shadow-lg rounded-2xl p-4 border border-gray-100">
+            <section className="flex flex-col gap-2 md:gap-4 md:w-8/12">
+              <article className="shadow rounded-2xl p-4 border border-gray-200">
                 <TitleCard title="Overview">
                   <p>{data?.overview}</p>
                 </TitleCard>
               </article>
-              <article className="shadow-lg rounded-2xl p-4 border border-gray-100">
+              <article className="shadow rounded-2xl p-4 border border-gray-200">
                 {isLoadingCreditsData ? (
                   <>Loading...</>
                 ) : errorCreditsData ? (
@@ -99,7 +99,7 @@ export default function Details() {
             </section>
 
             {/* right side */}
-            <aside className="flex flex-col gap-4 shadow-lg rounded-2xl p-4 md:w-4/12 border border-gray-100">
+            <aside className="flex flex-col gap-4 shadow rounded-2xl p-4 md:w-4/12 border border-gray-200">
               <TitleCard title="Vote Average">
                 <div className="text-4xl font-bold">
                   {renderRating(data?.vote_average)}
