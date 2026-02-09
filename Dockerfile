@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM nginx:alpine
+FROM nginx:mainline-alpine-slim
 
 RUN rm -rf /usr/share/nginx/html/*
 
